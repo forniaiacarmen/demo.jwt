@@ -15,6 +15,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+/**
+ * Esta clase crea el jwt
+ *
+ * **/
+
 @Service
 public class JwtService {
 
@@ -23,7 +28,10 @@ public class JwtService {
     public String getToken(UserDetails user) {
         return getToken(new HashMap<>(), user);
     }
-
+    /**
+     * aqui se ponen los datos que va a llevar el payload del jwt
+     *
+     * **/
     private String getToken(Map<String, Object> extraClaims, UserDetails user) {
         return Jwts
                 .builder()
@@ -39,6 +47,10 @@ public class JwtService {
         byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
         return Keys.hmacShaKeyFor(keyBytes);
     }
+
+    /**
+     * metodo que recoge el username del token
+     * **/
 
     public String getUsernameFromToken(String token) {
         return getClaim(token, Claims::getSubject);
